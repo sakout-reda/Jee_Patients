@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html 	xmlns:th="http://www.thymeleaf.org" 
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+		layout:decorator="template1"
+	>
+<head>
+<meta charset="utf-8">
+<title>Index Des Patients</title>
+<link href="vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<link href="style/iPaients.css" rel="stylesheet">
+</head>
+<body>
+<div layout:fragment="pageContent">
+<div class="container ">
+
+<div class="card">
+<div class="card-header"> Listes Des Patients</div>
+<div class="card-body">
+<form method="get" th:action="@{patients}">
+<div class="form-group">
+
+<label> Name</label>
+<input type="text" name="keyword" th:value="${keyword}">
+<button class="btn btn-success">Chercher</button>
+
+</div>
+</form>
+<table class="table">
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Date Naissance</th>
+<th>Score</th>
+<th>Malade</th>
+<th>Action</th>
+</tr>
+<tr th:each="p:${patients}">
+
+<td th:text="${p.id}"></td>
+<td th:text="${p.nom}"></td>
+<td th:text="${p.DateNaissance}"></td>
+<td th:text="${p.score}"></td>
+<td class=" text-capitalize" th:text="${p.malade}"></td>
+
+<td sec:authorize="hasRole('ROLE_ADMIN')">
+<a title="Delete" onclick="return confirm('Etes vous sure de vouloir supprimer ?')" class="btn btn-danger m-1" th:href="@{deletePatient(id=${p.id},keyword=${keyword},page=${currentPage},size=${size})}"> <i id="trashIcon" class='bx bxs-trash'></i> </a>
+<a title="Edit" class="btn btn-warning text-white m-1" th:href="@{editPatient(id=${p.id})}"> <i class='bx bx-message-square-edit'></i> </a>
+</td>
+
+
+</tr>
+</table>
+<ul class="nav nav-pills p-3 flex-row justify-content-center">
+<li  th:each="page,status:${pages}">
+<a th:class="${status.index==currentPage?'btn btn-primary':'btn'}" 
+th:href="@{patients(page=${status.index}, keyword=${keyword})}" th:text="${status.index}"></a>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

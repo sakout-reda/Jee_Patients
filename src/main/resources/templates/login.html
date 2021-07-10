@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html 	xmlns:th="http://www.thymeleaf.org" 
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+		layout:decorator="template1"
+	>
+	
+<head>
+<meta charset="utf-8">
+<link href="style/login.css" rel="stylesheet">
+<title>Page Patients</title>
+</head>
+
+<body>
+<div layout:fragment="pageContent">
+<div class="wrapper fadeInDown ">
+  <div id="formContent">
+    <div class="fadeIn first">
+      <h1> Medilab</h1>
+    </div>
+    <div class="text-danger" th:if="${param.error}">Bad credentials </div>
+    <form th:action="@{login}" method="post">
+      <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username">
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+    <div id="formFooter">
+      <a class="underlineHover" href="index">Login as a guest</a>
+    </div>
+
+  </div>
+</div>
+
+</div>
+</body>
+</html>

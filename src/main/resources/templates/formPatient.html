@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template1">
+<head>
+<meta charset="utf-8">
+<title>Formulaire Patients</title>
+<link href="style/fPatients.css" rel="stylesheet">
+</head>
+<body>
+	<div layout:fragment="pageContent">
+		<div class="card">
+			<div class="container mt-5">
+				<h3 th:if="${patient.id==null}">ADD Patient</h3>
+				<h3 th:if="${patient.id!=null}">Edit Patient</h3>
+				<form th:action="@{savePatient}" method="post">
+					<div class="container">
+						<div class="row">
+							<div class="d-flex flex-row justify-content-center myclass">
+								<div class="col-6">
+									<div class="form-group">
+										<label class="control-label"> ID: </label> <input
+											type="hidden" name="id" class="form-control"
+											th:text="${patient.id}">
+									</div>
+
+								</div>
+								<div class="col-6">
+									<div class="form-group">
+										<label class="control-label"> Nom: </label> <input type="text"
+											name="nom" class="form-control" th:value="${patient.nom}"
+											placeholder="Name" required="required" >
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+
+
+
+					<div class="container">
+						<div class="row">
+							<div class="d-flex flex-row justify-content-center myclass">
+								<div class="col-6">
+									<div class="form-group">
+										<label class="control-label"> Score: </label> <input
+											type="text" name="score" class="form-control"
+											th:value="${patient.score}"
+											 required="required">
+									</div>
+
+								</div>
+								<div class="col-6">
+									<label class="control-label"> Birthday: </label> <input
+										type="date" name="dateNaissance" class="form-control"
+										th:value="${patient.dateNaissance}"
+										 required="required">
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+			<div class="container">
+				<div class="row">
+					<div class="d-flex flex-row justify-content-center myclass">
+						<div class="col-6">
+							<div class="form-group">
+								<label class="control-label"> Sick: </label> <input class="checkPad"
+									type="checkbox" name="malade" th:checked="${patient.malade}">
+							</div>
+
+						</div>
+						<div class="col-6">
+							<button class="myButton" type="submit">Save</button>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+					</form>
+		</div>
+
+
+	</div>
+	</div>
+
+</body>
+</html>
